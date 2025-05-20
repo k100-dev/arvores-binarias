@@ -1,7 +1,11 @@
-public class Main {
+public class App {
     public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
+
         System.out.println("Pré-ordem da árvore:");
-        tree.printPreOrder(tree.root);  // Saída esperada: A B D E C F
+        tree.printPreOrder(tree.getRoot()); 
+
+        int totalNos = tree.countNodes(tree.getRoot());
+        System.out.println("\nTotal de nós da árvore: " + totalNos); 
     }
 }
