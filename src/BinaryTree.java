@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class BinaryTree {
     private Node root;
 
@@ -6,20 +9,20 @@ public class BinaryTree {
     }
 
     private void buildTree() {
-        Node a = new Node("A");
-        Node b = new Node("B");
-        Node c = new Node("C");
-        Node d = new Node("D");
-        Node e = new Node("E");
-        Node f = new Node("F");
+        Node nodeA = new Node("A");
+        Node nodeB = new Node("B");
+        Node nodeC = new Node("C");
+        Node nodeD = new Node("D");
+        Node nodeE = new Node("E");
+        Node nodeF = new Node("F");
 
-        a.setLeft(b);
-        a.setRight(c);
-        b.setLeft(d);
-        b.setRight(e);
-        c.setRight(f);
+        nodeA.setLeft(nodeB);
+        nodeA.setRight(nodeC);
+        nodeB.setLeft(nodeD);
+        nodeB.setRight(nodeE);
+        nodeC.setRight(nodeF);
 
-        root = a;
+        this.root = nodeA;
     }
 
     public Node getRoot() {
@@ -27,17 +30,42 @@ public class BinaryTree {
     }
 
     public void printPreOrder(Node node) {
-        if (node == null) return;
-        System.out.print(node.getValue() + " ");
-        printPreOrder(node.getLeft());
-        printPreOrder(node.getRight());
+        if (node != null) {
+            System.out.print(node.getValue() + " ");
+            printPreOrder(node.getLeft());
+            printPreOrder(node.getRight());
+        }
     }
 
     public void printInOrder(Node node) {
-        if (node == null) return;
-        printInOrder(node.getLeft());
-        System.out.print(node.getValue() + " ");
-        printInOrder(node.getRight());
+        if (node != null) {
+            printInOrder(node.getLeft());
+            System.out.print(node.getValue() + " ");
+            printInOrder(node.getRight());
+        }
+    }
+
+    public void printPostOrder(Node node) {
+        if (node != null) {
+            printPostOrder(node.getLeft());
+            printPostOrder(node.getRight());
+            System.out.print(node.getValue() + " ");
+        }
+    }
+
+    public void printLevelOrder() {
+        if (root == null) return;
+
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            Node current = queue.poll();
+            System.out.print(current.getValue() + " ");
+
+            if (current.getLeft() != null) queue.add(current.getLeft());
+            if (current.getRight() != null) queue.add(current.getRight());
+        }
     }
 
     public int countNodes(Node node) {
