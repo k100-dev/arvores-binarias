@@ -18,6 +18,8 @@ public class App {
         tree.printLevelOrder();
         System.out.println();
 
+        System.out.println("Total de nós folha: " + tree.countLeafNodes(tree.getRoot()));
+
         System.out.println("Total de nós da árvore: " + tree.countNodes(tree.getRoot()));
     }
 }

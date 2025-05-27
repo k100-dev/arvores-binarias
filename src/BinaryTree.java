@@ -53,6 +53,19 @@ public class BinaryTree {
         }
     }
 
+    public int countLeafNodes(Node node) {
+    if (node == null) {
+        return 0;
+    }
+
+    if (node.getLeft() == null && node.getRight() == null) {
+        return 1;
+    }
+
+    return countLeafNodes(node.getLeft()) + countLeafNodes(node.getRight());
+}
+
+
     public void printLevelOrder() {
         if (root == null) return;
 
