@@ -1,26 +1,31 @@
 public class App {
     public static void main(String[] args) {
-        BinaryTree tree = new BinaryTree();
+        ArvoreBinaria arvore = new ArvoreBinaria();
 
         System.out.println("Pré-ordem:");
-        tree.printPreOrder(tree.getRoot());
+        arvore.imprimirPreOrdem(arvore.getRaiz());
         System.out.println();
 
         System.out.println("Em ordem:");
-        tree.printInOrder(tree.getRoot());
+        arvore.imprimirEmOrdem(arvore.getRaiz());
         System.out.println();
 
         System.out.println("Pós-ordem:");
-        tree.printPostOrder(tree.getRoot());
+        arvore.imprimirPosOrdem(arvore.getRaiz());
         System.out.println();
 
         System.out.println("Por nível:");
-        tree.printLevelOrder();
+        arvore.imprimirPorNivel();
         System.out.println();
 
-        System.out.println("Total de nós folha: " + tree.countLeafNodes(tree.getRoot()));
+        System.out.println("Contagem com pilha (iterativo):");
+        int totalComPilha = arvore.contarNosComPilha(); // corrigido
+        System.out.println("Total de nós (pilha): " + totalComPilha);
         System.out.println();
 
-        System.out.println("Total de nós da árvore: " + tree.countNodes(tree.getRoot()));
+        System.out.println("Total de nós folha: " + arvore.contarNosFolha(arvore.getRaiz()));
+        System.out.println();
+
+        System.out.println("Total de nós da árvore: " + arvore.contarNos(arvore.getRaiz())); // corrigido
     }
 }
