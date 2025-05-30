@@ -18,8 +18,7 @@ public class App {
         arvore.imprimirPorNivel();
         System.out.println();
 
-        System.out.println("Contagem com pilha (iterativo):");
-        int totalComPilha = arvore.contarNosComPilha(); // corrigido
+        int totalComPilha = arvore.contarNosComPilha();
         System.out.println("Total de nós (pilha): " + totalComPilha);
         System.out.println();
 
