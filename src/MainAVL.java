@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class MainAVL {
 
-    // Classe interna para representar os nós da árvore
+    // Classe do nó da árvore
     static class No {
         String valor;
         No esquerda, direita;
@@ -14,7 +14,7 @@ public class MainAVL {
         }
     }
 
-    // Classe AVL
+    // Classe da árvore AVL
     static class ArvoreAVL {
         private No raiz;
 
@@ -22,43 +22,46 @@ public class MainAVL {
             return raiz;
         }
 
+        // Inserção na árvore com balanceamento AVL
         public void inserir(String valor) {
-            raiz = inserir(raiz, valor);
+            raiz = inserirRec(raiz, valor);
         }
 
-        private No inserir(No no, String valor) {
+        private No inserirRec(No no, String valor) {
             if (no == null) return new No(valor);
 
             if (valor.compareTo(no.valor) < 0) {
-                no.esquerda = inserir(no.esquerda, valor);
+                no.esquerda = inserirRec(no.esquerda, valor);
             } else if (valor.compareTo(no.valor) > 0) {
-                no.direita = inserir(no.direita, valor);
+                no.direita = inserirRec(no.direita, valor);
             } else {
-                return no; // duplicado, ignora
+                return no; // valor duplicado
             }
 
-            no.altura = 1 + Math.max(altura(no.esquerda), altura(no.direita));
-
+            atualizarAltura(no);
             int balance = getBalance(no);
 
-            // Casos de rotação
-            if (balance > 1 && valor.compareTo(no.esquerda.valor) < 0)
-                return rotacionarDireita(no);
-
-            if (balance < -1 && valor.compareTo(no.direita.valor) > 0)
-                return rotacionarEsquerda(no);
-
-            if (balance > 1 && valor.compareTo(no.esquerda.valor) > 0) {
-                no.esquerda = rotacionarEsquerda(no.esquerda);
-                return rotacionarDireita(no);
+            // Casos de desbalanceamento e rotações
+            if (balance > 1 && valor.compareTo(no.esquerda.valor) < 0) {
+                return rotacaoDireita(no); // Caso esquerda-esquerda
             }
-
+            if (balance < -1 && valor.compareTo(no.direita.valor) > 0) {
+                return rotacaoEsquerda(no); // Caso direita-direita
+            }
+            if (balance > 1 && valor.compareTo(no.esquerda.valor) > 0) {
+                no.esquerda = rotacaoEsquerda(no.esquerda); // Caso esquerda-direita
+                return rotacaoDireita(no);
+            }
             if (balance < -1 && valor.compareTo(no.direita.valor) < 0) {
-                no.direita = rotacionarDireita(no.direita);
-                return rotacionarEsquerda(no);
+                no.direita = rotacaoDireita(no.direita); // Caso direita-esquerda
+                return rotacaoEsquerda(no);
             }
 
             return no;
+        }
+
+        private void atualizarAltura(No no) {
+            no.altura = 1 + Math.max(altura(no.esquerda), altura(no.direita));
         }
 
         private int altura(No no) {
@@ -69,32 +72,35 @@ public class MainAVL {
             return (no == null) ? 0 : altura(no.esquerda) - altura(no.direita);
         }
 
-        private No rotacionarDireita(No y) {
+        // Rotação simples à direita
+        private No rotacaoDireita(No y) {
             No x = y.esquerda;
-            No T2 = x.direita;
+            No t2 = x.direita;
 
             x.direita = y;
-            y.esquerda = T2;
+            y.esquerda = t2;
 
-            y.altura = 1 + Math.max(altura(y.esquerda), altura(y.direita));
-            x.altura = 1 + Math.max(altura(x.esquerda), altura(x.direita));
+            atualizarAltura(y);
+            atualizarAltura(x);
 
             return x;
         }
 
-        private No rotacionarEsquerda(No x) {
+        // Rotação simples à esquerda
+        private No rotacaoEsquerda(No x) {
             No y = x.direita;
-            No T2 = y.esquerda;
+            No t2 = y.esquerda;
 
             y.esquerda = x;
-            x.direita = T2;
+            x.direita = t2;
 
-            x.altura = 1 + Math.max(altura(x.esquerda), altura(x.direita));
-            y.altura = 1 + Math.max(altura(y.esquerda), altura(y.direita));
+            atualizarAltura(x);
+            atualizarAltura(y);
 
             return y;
         }
 
+        // Impressão em ordem
         public void imprimirEmOrdem(No no) {
             if (no != null) {
                 imprimirEmOrdem(no.esquerda);
@@ -103,36 +109,39 @@ public class MainAVL {
             }
         }
 
+        // Busca por valor na árvore
         public boolean buscar(String valor) {
-            return buscar(raiz, valor);
+            return buscarRec(raiz, valor);
         }
 
-        private boolean buscar(No no, String valor) {
+        private boolean buscarRec(No no, String valor) {
             if (no == null) return false;
-
             if (valor.equals(no.valor)) return true;
-            if (valor.compareTo(no.valor) < 0) return buscar(no.esquerda, valor);
-            else return buscar(no.direita, valor);
+            if (valor.compareTo(no.valor) < 0) return buscarRec(no.esquerda, valor);
+            return buscarRec(no.direita, valor);
         }
     }
 
-    // Método principal
+    // Execução principal
     public static void main(String[] args) {
         ArvoreAVL avl = new ArvoreAVL();
         Scanner scanner = new Scanner(System.in);
 
-        // Inserindo alguns valores
+        // Inserção inicial de dados
         avl.inserir("M");
         avl.inserir("B");
         avl.inserir("Q");
         avl.inserir("A");
         avl.inserir("C");
         avl.inserir("Z");
+        avl.inserir("X");
+        avl.inserir("L");
+        
 
-        System.out.println("Árvore AVL criada com os seguintes elementos:");
+        System.out.println("Árvore AVL construída.");
         System.out.print("Em ordem (AVL): ");
         avl.imprimirEmOrdem(avl.getRaiz());
-        System.out.println("\n");
+        System.out.println();
 
         // Loop de busca
         while (true) {
@@ -145,13 +154,13 @@ public class MainAVL {
 
             boolean encontrado = avl.buscar(entrada);
             if (encontrado) {
-                System.out.println("Encontrado: " + entrada + "\n");
+                System.out.println("Valor encontrado.");
             } else {
-                System.out.println("Não encontrado: " + entrada + "\n");
+                System.out.println("Valor não encontrado.");
             }
         }
 
         scanner.close();
-        System.out.println("Programa encerrado.");
+        System.out.println("Programa finalizado.");
     }
 }
