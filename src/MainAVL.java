@@ -27,6 +27,31 @@ class No {
         this.valor = valor;
         this.altura = 1;
     }
+
+    public void setEsquerdo(No noB) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setEsquerdo'");
+    }
+
+    public void setDireito(No noC) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setDireito'");
+    }
+
+    public String getValor() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getValor'");
+    }
+
+    public No getEsquerdo() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getEsquerdo'");
+    }
+
+    public No getDireito() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getDireito'");
+    }
 }
 
 class AVL {
