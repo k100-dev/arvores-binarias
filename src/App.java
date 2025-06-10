@@ -25,6 +25,6 @@ public class App {
         System.out.println("Total de nós folha: " + arvore.contarNosFolha(arvore.getRaiz()));
         System.out.println();
 
-        System.out.println("Total de nós da árvore: " + arvore.contarNos(arvore.getRaiz())); // corrigido
+        System.out.println("Total de nós da árvore: " + arvore.contarNos(arvore.getRaiz()));
     }
 }

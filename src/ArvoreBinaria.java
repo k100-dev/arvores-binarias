@@ -79,7 +79,7 @@ public class ArvoreBinaria {
         return 1 + contarNos(no.getEsquerdo()) + contarNos(no.getDireito());
     }
 
-    // Contar todos os nós (iterativa)
+    // Contar todos os nós (iterativa com pilha)
     public int contarNosComPilha() {
         if (raiz == null) return 0;
 
