@@ -23,7 +23,7 @@
             this.raiz = null;
         }
 
-        // Inserção pública
+        // Inserção do user
         public void inserir(String valor) {
             NoRB novo = new NoRB(valor);
             raiz = inserirRec(raiz, novo);
